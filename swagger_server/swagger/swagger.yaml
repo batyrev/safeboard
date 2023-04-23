@@ -1,0 +1,130 @@
+openapi: 3.0.3
+info:
+  title: Поиск файлов по локальной файловой системе
+  description: API поиска файлов по локальной файловой системе
+  contact:
+    name: Batyrev Vladislav
+    email: batyrev-vr@yandex.ru
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- name: MakeSearch
+- name: GetSearches
+paths:
+  /search:
+    post:
+      tags:
+      - MakeSearch
+      summary: Создать поиск файлов
+      description: Ответом на создание поиска файлов должен быть идентификатор поиска
+      operationId: search_files
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/searchRequest'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchResponse'
+      x-openapi-router-controller: swagger_server.controllers.make_search_controller
+  /searches/{search_id}:
+    get:
+      tags:
+      - GetSearches
+      summary: Получить результаты поиска
+      description: "Ответом на получение результатов поиска должен быть либо списо\
+        к путей к файлам, либо информация о том, что поиск ещё не завершился"
+      operationId: get_search_results
+      parameters:
+      - name: search_id
+        in: path
+        description: Идентификатор поиска
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchesResponse'
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchResponseNotFinished'
+      x-openapi-router-controller: swagger_server.controllers.get_searches_controller
+components:
+  schemas:
+    searchRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          example: text
+        file_mask:
+          type: string
+          example: '*a*.???'
+        size:
+          $ref: '#/components/schemas/searchRequest_size'
+        creation_time:
+          $ref: '#/components/schemas/searchRequest_creation_time'
+    searchResponse:
+      type: object
+      properties:
+        search_id:
+          type: string
+          example: da221751f54de985da9bec83b1f57238
+      example:
+        search_id: da221751f54de985da9bec83b1f57238
+    searchesResponse:
+      type: object
+      properties:
+        search_id:
+          type: string
+          example: da221751f54de985da9bec83b1f57238
+        paths:
+          type: array
+          items:
+            type: string
+            example: C:\Users\user\Documents\file.txt
+      example:
+        paths:
+        - C:\Users\user\Documents\file1.txt
+        - C:\Users\user\Documents\file2.txt
+        search_id: da221751f54de985da9bec83b1f57238
+    searchResponseNotFinished:
+      type: object
+      properties:
+        finished:
+          type: boolean
+          example: false
+    searchRequest_size:
+      type: object
+      properties:
+        value:
+          type: integer
+          example: 42000
+        operator:
+          type: string
+          example: gt
+    searchRequest_creation_time:
+      type: object
+      properties:
+        value:
+          type: string
+          example: 2020-03-03T14:00:54Z
+        operator:
+          type: string
+          example: eq
+
