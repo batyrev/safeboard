@@ -23,7 +23,8 @@ def find_files(search_id, body):
                compare_file_size(full_filename,
                                  body.size.value,
                                  body.size.operator):
-                files.append(full_filename)
+                files.append(os.path.relpath(full_filename,
+                                             config.SEARCHING_PATH))
     for file in files:
         add_new_path(search_id, file)
     set_status_by_search_id(search_id, True)
