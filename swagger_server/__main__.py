@@ -4,6 +4,11 @@ from os import path
 import connexion
 from swagger_server.models.db_models import db
 from swagger_server import encoder
+from swagger_server.utils import server_args_parser
+import swagger_server.config as config
+
+args = server_args_parser()
+config.SEARCHING_PATH = args.searchpath
 
 app = connexion.App(__name__, specification_dir='./swagger/')
 app.app.json_encoder = encoder.JSONEncoder
