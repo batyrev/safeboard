@@ -26,7 +26,7 @@ def add_new_search(search_id):
 
 def get_paths_by_search_id(search_id):
     with app.app.app_context():
-        paths_query = db.session.query(Path.path).filter_by(search_id=search_id).all()
+        paths_query = db.session.query(Path.path).filter_by(search_id=search_id).all()  # noqa: E501
         paths = []
         for path in paths_query:
             paths.append(path.path)
@@ -35,7 +35,7 @@ def get_paths_by_search_id(search_id):
 
 def get_status_by_search_id(search_id):
     with app.app.app_context():
-        finished = db.session.query(Search.finished).filter_by(search_id=search_id).first()
+        finished = db.session.query(Search.finished).filter_by(search_id=search_id).first()  # noqa: E501
         return finished[0] if finished is not None else None
 
 
@@ -43,7 +43,7 @@ def set_status_by_search_id(search_id, finished):
     with app.app.app_context():
         try:
             new_search = {"search_id": search_id, "finished": finished}
-            db.session.query(Search).filter_by(search_id=search_id).update(new_search)
+            db.session.query(Search).filter_by(search_id=search_id).update(new_search)  # noqa: E501
             db.session.commit()
         except IntegrityError:
             db.session.rollback()

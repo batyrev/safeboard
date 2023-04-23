@@ -17,10 +17,12 @@ with app.app.app_context():
     db.create_all()
     db.session.commit()
 
+
 def main():
     app.add_api('swagger.yaml',
-            arguments={'title': 'Поиск файлов по локальной файловой системе'},
-            pythonic_params=True)
+                arguments={'title':
+                           'Поиск файлов по локальной файловой системе'},
+                pythonic_params=True)
 
     app.run(port=8080)
 

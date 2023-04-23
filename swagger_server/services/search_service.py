@@ -1,10 +1,9 @@
 import os
-import time #
 import fnmatch
 from datetime import datetime
 
 from swagger_server.config import PATH
-from swagger_server.services.db_service import add_new_path, set_status_by_search_id
+from swagger_server.services.db_service import add_new_path, set_status_by_search_id  # noqa: E501
 
 
 def find_files(search_id,
@@ -34,9 +33,7 @@ def find_files(search_id,
                 files.append(full_filename)
     for file in files:
         add_new_path(search_id, file)
-    time.sleep(5) #
     set_status_by_search_id(search_id, True)
-    print("ок") #
 
 
 def find_string_in_file(filename, search_string):
@@ -55,8 +52,9 @@ def find_string_in_file(filename, search_string):
 
 def compare_file_creation_date(file_name, date_string, comparison_rule):
     """
-    Сравнивает дату создания файла с датой, которую мы передаем, используя правило сравнения, которое мы также передаем.
-    Возвращает True, если сравнение истинно, в противном случае возвращает False.
+    Сравнивает дату создания файла с датой, которую мы передаем, используя
+    правило сравнения, которое мы также передаем.
+    Возвращает True, если сравнение истинно, в противном случае возвращает False.  # noqa: E501
     """
     # Получаем время создания файла
     file_creation_time = os.path.getctime(file_name)

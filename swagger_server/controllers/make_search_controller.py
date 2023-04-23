@@ -1,24 +1,20 @@
 import hashlib
 import threading
-
 import connexion
-import six
 
 from swagger_server.models.search_request import SearchRequest  # noqa: E501
 from swagger_server.models.search_response import SearchResponse  # noqa: E501
 from swagger_server.models.search_response_started import SearchResponseStarted  # noqa: E501
-from swagger_server import util
-
-from swagger_server.services.db_service import add_new_search, get_status_by_search_id
-from swagger_server.services.search_service import find_files
+from swagger_server.services.db_service import add_new_search, get_status_by_search_id  # noqa: E501
+from swagger_server.services.search_service import find_files  # noqa: E501
 
 
-def search_files(body):  # noqa: E501
+def search_files(body):
     """Создать поиск файлов
 
     Ответом на создание поиска файлов должен быть идентификатор поиска # noqa: E501
 
-    :param body: 
+    :param body:
     :type body: dict | bytes
 
     :rtype: SearchResponse
@@ -41,7 +37,7 @@ def search_files(body):  # noqa: E501
             thread.start()
             response = SearchResponse(search_id=search_id)
         else:
-            response = SearchResponseStarted(search_id=search_id, finished=finished)
+            response = SearchResponseStarted(search_id=search_id, finished=finished)  # noqa: E501
     return response
 
 
