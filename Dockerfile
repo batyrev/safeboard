@@ -1,7 +1,5 @@
 FROM python:3.6-alpine
 
-RUN apt-get update && apt-get install -y sqlite3
-
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
