@@ -2,7 +2,7 @@
 
 from os import path
 import connexion
-from swagger_server.db import db
+from swagger_server.models.db_models import db
 from swagger_server import encoder
 
 app = connexion.App(__name__, specification_dir='./swagger/')

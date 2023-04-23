@@ -27,13 +27,7 @@ def search_files(body):
         if finished is None:
             add_new_search(search_id)
             thread = threading.Thread(target=find_files,
-                                      args=(search_id,
-                                            body.file_mask,
-                                            body.text,
-                                            body.creation_time.value,
-                                            body.creation_time.operator,
-                                            body.size.value,
-                                            body.size.operator))
+                                      args=(search_id, body))
             thread.start()
             response = SearchResponse(search_id=search_id)
         else:

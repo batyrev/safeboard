@@ -2,34 +2,27 @@ import os
 import fnmatch
 from datetime import datetime
 
-from swagger_server.config import PATH
+import swagger_server.config as config
 from swagger_server.services.db_service import add_new_path, set_status_by_search_id  # noqa: E501
 
 
-def find_files(search_id,
-               mask,
-               search_string,
-               date_string,
-               date_comparison_rule,
-               size,
-               size_comparison_rule):
+def find_files(search_id, body):
     """
     Функция ищет файлы в указанной папке по заданным параметрам.
     :return: list, список файлов, соответствующих заданным параметрам
     """
-    path = PATH
     files = []
-    for root, _, filenames in os.walk(path):
-        for filename in fnmatch.filter(filenames, mask):
+    for root, _, filenames in os.walk(config.SEARCHING_PATH):
+        for filename in fnmatch.filter(filenames, body.file_mask):
             full_filename = os.path.join(root, filename)
             if find_string_in_file(full_filename,
-                                   search_string) and \
+                                   body.text) and \
                compare_file_creation_date(full_filename,
-                                          date_string,
-                                          date_comparison_rule) and \
+                                          body.creation_time.value,
+                                          body.creation_time.operator) and \
                compare_file_size(full_filename,
-                                 size,
-                                 size_comparison_rule):
+                                 body.size.value,
+                                 body.size.operator):
                 files.append(full_filename)
     for file in files:
         add_new_path(search_id, file)
