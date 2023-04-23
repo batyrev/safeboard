@@ -7,5 +7,5 @@ from swagger_server.models.search_request import SearchRequest
 from swagger_server.models.search_request_creation_time import SearchRequestCreationTime
 from swagger_server.models.search_request_size import SearchRequestSize
 from swagger_server.models.search_response import SearchResponse
-from swagger_server.models.search_response_not_finished import SearchResponseNotFinished
+from swagger_server.models.search_response_started import SearchResponseStarted
 from swagger_server.models.searches_response import SearchesResponse

@@ -5,7 +5,7 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from swagger_server.models.search_response_not_finished import SearchResponseNotFinished  # noqa: E501
+from swagger_server.models.search_response_started import SearchResponseNotFinished  # noqa: E501
 from swagger_server.models.searches_response import SearchesResponse  # noqa: E501
 from swagger_server.test import BaseTestCase
 

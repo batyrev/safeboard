@@ -12,7 +12,6 @@ class Search(db.Model):
         return {
             'search_id': self.search_id,
             'finished': self.finished,
-            'paths': self.paths,
         }
 
 

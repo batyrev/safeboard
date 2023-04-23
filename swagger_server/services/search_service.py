@@ -1,9 +1,9 @@
 import os
-import time
+import time #
 import fnmatch
 
 from swagger_server.config import PATH
-from swagger_server.services.db_service import add_new_path
+from swagger_server.services.db_service import add_new_path, set_status_by_search_id
 
 
 def find_files_by_mask(search_id, mask):
@@ -20,5 +20,6 @@ def find_files_by_mask(search_id, mask):
             files.append(os.path.join(root, filename))
     for file in files:
         add_new_path(search_id, file)
-    time.sleep(5)
-    print("ок")
+    set_status_by_search_id(search_id, True)
+    time.sleep(5) #
+    print("ок") #

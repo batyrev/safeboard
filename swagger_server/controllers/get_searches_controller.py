@@ -1,7 +1,7 @@
 import connexion
 import six
 
-from swagger_server.models.search_response_not_finished import SearchResponseNotFinished  # noqa: E501
+from swagger_server.models.search_response_started import SearchResponseStarted  # noqa: E501
 from swagger_server.models.searches_response import SearchesResponse  # noqa: E501
 from swagger_server import util
 
