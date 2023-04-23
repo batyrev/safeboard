@@ -10,7 +10,7 @@ from swagger_server.models.search_response_started import SearchResponseStarted 
 from swagger_server import util
 
 from swagger_server.services.db_service import add_new_search, get_status_by_search_id
-from swagger_server.services.search_service import find_files_by_mask
+from swagger_server.services.search_service import find_files
 
 
 def search_files(body):  # noqa: E501
@@ -30,8 +30,14 @@ def search_files(body):  # noqa: E501
 
         if finished is None:
             add_new_search(search_id)
-            thread = threading.Thread(target=find_files_by_mask,
-                                    args=(search_id, body.file_mask))
+            thread = threading.Thread(target=find_files,
+                                      args=(search_id,
+                                            body.file_mask,
+                                            body.text,
+                                            body.creation_time.value,
+                                            body.creation_time.operator,
+                                            body.size.value,
+                                            body.size.operator))
             thread.start()
             response = SearchResponse(search_id=search_id)
         else:
