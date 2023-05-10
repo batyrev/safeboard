@@ -13,13 +13,13 @@ Python 3.5.2+
 ## Usage
 To run the server, please execute the following from the root directory:
 
-```
+```bash
 pip3 install -r requirements.txt
 python3 -m swagger_server --searchpath "SEARCHING_PATH"
 
-SEARCHING_PATH - absolute path, example: C:\\Users\\user\\Project
+# SEARCHING_PATH - absolute path, example: C:\\Users\\user\\Project
+# by default - project directory
 ```
-
 and open your browser to here:
 
 ```
@@ -49,6 +49,6 @@ docker build -t swagger_server .
 # starting up a container
 docker run -p 8080:8080 -e SEARCHING_PATH="SEARCHING_PATH" swagger_server
 
-```
-SEARCHING_PATH - absolute path, example: C:\\Users\\user\\Project
+#SEARCHING_PATH - absolute path, example: C:\\Users\\user\\Project
+#by default - project directory
 ```
